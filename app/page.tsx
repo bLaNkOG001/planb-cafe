@@ -3,16 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import Navbar from "./components/Navbar";
 import LoadingScreen from "./components/LoadingScreen";
+
 import HeroSection from "./sections/HeroSection";
 import AboutSection from "./sections/AboutSection";
 import SignatureDishes from "./sections/SignatureDishes";
 import MenuSection from "./sections/MenuSection";
 import GallerySection from "./sections/GallerySection";
-import ReviewsSection from "./sections/ReviewsSection";
+import ReviewSection from "./sections/ReviewSection";
 import ReservationSection from "./sections/ReservationSection";
-import ContactSection from "./sections/ContactSection";
 import Footer from "./sections/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,6 +26,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -33,25 +35,31 @@ export default function Home() {
       const ctx = gsap.context(() => {
         ScrollTrigger.refresh();
       }, mainRef);
+
       return () => ctx.revert();
     }
   }, [isLoading]);
 
   return (
     <>
-      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+      {isLoading && (
+        <LoadingScreen onComplete={() => setIsLoading(false)} />
+      )}
+
       <main ref={mainRef} className="relative">
         <Navbar />
+
         <HeroSection />
         <AboutSection />
         <SignatureDishes />
         <MenuSection />
         <GallerySection />
-        <ReviewsSection />
+        <ReviewSection />
         <ReservationSection />
-        <ContactSection />
+
         <Footer />
       </main>
     </>
   );
 }
+```
